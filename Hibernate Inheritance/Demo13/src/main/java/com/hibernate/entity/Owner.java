@@ -1,8 +1,5 @@
 package com.hibernate.entity;
 
-import java.util.HashSet;
-import java.util.Set;
-
 import com.hibernate.enums.Gender;
 
 import jakarta.persistence.CascadeType;
@@ -14,10 +11,13 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
-import jakarta.persistence.JoinTable;
-import jakarta.persistence.ManyToMany;
+import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 
+/**
+ * @author abhishekvermaa10
+ *
+ */
 @Entity
 @Table(name = "owner_table")
 public class Owner {
@@ -39,18 +39,10 @@ public class Owner {
 	private String mobileNumber;
 	@Column(name = "email_id", nullable = false, unique = true)
 	private String emailId;
-	/*
-	  In Many to Many mapping we are not going to have CascadeType.ALL because if we delete a owner the pet related to other owner aslo
-	  get deleted so it cause FOREIGN KEY VIOLATION
-	 */
-	@ManyToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
-	@JoinTable(name = "owner_pet_table", 
-	joinColumns = @JoinColumn(name = "owner_id", 
-	      referencedColumnName = "id", nullable = false), 
-	inverseJoinColumns = @JoinColumn(name = "pet_id", 
-	      referencedColumnName = "id", nullable = false))
-	private Set<Pet> petList = new HashSet<>();
-
+	@OneToOne(cascade = CascadeType.ALL, optional = false, orphanRemoval = true)
+	@JoinColumn(name = "pet_id", referencedColumnName = "id", nullable = false, unique = true)
+	private Pet pet;
+	
 	public int getId() {
 		return id;
 	}
@@ -111,20 +103,19 @@ public class Owner {
 		this.emailId = emailId;
 	}
 
-	public Set<Pet> getPetList() {
-		return petList;
+	public Pet getPet() {
+		return pet;
 	}
 
-	public void setPetList(Set<Pet> petList) {
-		this.petList = petList;
+	public void setPet(Pet pet) {
+		this.pet = pet;
 	}
 
 	@Override
 	public String toString() {
 		return "Owner [id=" + id + ", firstName=" + firstName + ", lastName=" + lastName + ", gender=" + gender
 				+ ", city=" + city + ", state=" + state + ", mobileNumber=" + mobileNumber + ", emailId=" + emailId
-				+ "]";
+				+ ", pet=" + pet + "]";
 	}
-	
 
 }
