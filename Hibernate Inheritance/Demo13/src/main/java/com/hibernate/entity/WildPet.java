@@ -4,10 +4,6 @@ import jakarta.persistence.Column;
 import jakarta.persistence.DiscriminatorValue;
 import jakarta.persistence.Entity;
 
-/**
- * @author abhishekvermaa10
- *
- */
 @DiscriminatorValue("Wild")
 @Entity
 public class WildPet extends Pet {

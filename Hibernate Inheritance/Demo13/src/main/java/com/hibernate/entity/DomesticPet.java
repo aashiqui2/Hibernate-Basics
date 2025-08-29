@@ -5,10 +5,7 @@ import java.time.LocalDate;
 import jakarta.persistence.Column;
 import jakarta.persistence.DiscriminatorValue;
 import jakarta.persistence.Entity;
-/**
- * @author abhishekvermaa10
- *
- */
+
 @DiscriminatorValue("Domestic")
 @Entity
 public class DomesticPet extends Pet {
@@ -29,3 +26,4 @@ public class DomesticPet extends Pet {
 				+ birthDate + ", type=" + getType() + ", owner=" + getOwner() + "]";
 	}
 }
+

@@ -1,5 +1,6 @@
 package com.hibernate.entity;
 
+
 import com.hibernate.enums.Gender;
 import com.hibernate.enums.PetType;
 
@@ -12,14 +13,11 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Inheritance;
+import jakarta.persistence.InheritanceType;
 import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 
-/**
- * @author abhishekvermaa10
- *
- */
-@Inheritance
+@Inheritance(strategy = InheritanceType.SINGLE_TABLE)
 @DiscriminatorColumn(name = "category")
 @Entity
 @Table(name = "pet_table")
