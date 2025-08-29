@@ -14,18 +14,28 @@ create table owner_table (
     foreign key (pet_id) references pet_table(id)
 );
 
-create table pet_table (
-	id integer not null auto_increment primary key,
-	date_of_birth date,
-	place_of_birth varchar(255),
-	gender enum ('M','F') not null,
-	name varchar(255) not null,
-	type enum ('BIRD','CAT','DOG','FISH','RABBIT') not null,
-	category varchar(31) not null
+create table domestic_pet_table (
+	id integer not null primary key,
+	date_of_birth date not null,
+    foreign key (id) references pet_table(id)
 );
 
-insert into pet_table (name, date_of_birth, gender, type, category) values (?,?,?,?,'Domestic');
-insert into pet_table (name, place_of_birth, gender, type, category) values (?,?,?,?,'Wild');
+create table wild_pet_table (
+	id integer not null primary key,
+	place_of_birth varchar(255) not null,
+    foreign key (id) references pet_table(id)
+);
+
+create table pet_table (
+	id integer not null auto_increment primary key,
+	gender enum ('M','F') not null,
+	name varchar(255) not null,
+	type enum ('BIRD','CAT','DOG','FISH','RABBIT') not null
+);
+
+insert into pet_table (name, gender, type) values (?,?,?);
+insert into domestic_pet_table (id, date_of_birth) values (?,?);
+insert into wild_pet_table (id, place_of_birth) values (?,?);
 insert into owner_table (first_name, last_name, gender, city, state, mobile_number, email_id, pet_id) values (?,?,?,?,?,?,?,?);
 select * from owner_table where id = ?;
 update owner_table set pet_name = ? where id = ?;

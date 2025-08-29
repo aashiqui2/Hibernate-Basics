@@ -7,19 +7,14 @@ import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 
 @Entity
 @Table(name = "owner_table")
-public class Owner {
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Id
-	private int id;
+public class Owner extends Base {
 	@Column(name = "first_name", nullable = false)
 	private String firstName;
 	@Column(name = "last_name", nullable = false)
@@ -35,13 +30,9 @@ public class Owner {
 	private String mobileNumber;
 	@Column(name = "email_id", nullable = false, unique = true)
 	private String emailId;
-	@OneToOne(cascade = CascadeType.ALL, optional = false, orphanRemoval = true)
+	@OneToOne(cascade = CascadeType.ALL,fetch=FetchType.LAZY, optional = false, orphanRemoval = true)
 	@JoinColumn(name = "pet_id", referencedColumnName = "id", nullable = false, unique = true)
 	private Pet pet;
-	
-	public int getId() {
-		return id;
-	}
 
 	public String getFirstName() {
 		return firstName;
@@ -109,7 +100,7 @@ public class Owner {
 
 	@Override
 	public String toString() {
-		return "Owner [id=" + id + ", firstName=" + firstName + ", lastName=" + lastName + ", gender=" + gender
+		return "Owner [id=" + getId() + ", firstName=" + firstName + ", lastName=" + lastName + ", gender=" + gender
 				+ ", city=" + city + ", state=" + state + ", mobileNumber=" + mobileNumber + ", emailId=" + emailId
 				+ ", pet=" + pet + "]";
 	}

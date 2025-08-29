@@ -8,15 +8,21 @@ import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
 import jakarta.persistence.Inheritance;
 import jakarta.persistence.InheritanceType;
 import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 
-@Inheritance(strategy = InheritanceType.JOINED)
+@Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
 @Entity
 @Table(name = "pet_table")
-public class Pet extends Base {
+public class Pet {
+	@GeneratedValue(strategy = GenerationType.AUTO)
+	@Id
+	private int id;
 	@Column(nullable = false)
 	private String name;
 	@Enumerated(value = EnumType.STRING)
@@ -27,6 +33,10 @@ public class Pet extends Base {
 	private PetType type;
 	@OneToOne(mappedBy = "pet")
 	private Owner owner;
+
+	public int getId() {
+		return id;
+	}
 
 	public String getName() {
 		return name;
@@ -62,7 +72,6 @@ public class Pet extends Base {
 
 	@Override
 	public String toString() {
-		return "Pet [id=" + getId() + ", name=" + name + ", gender=" + gender + ", type=" + type + ", owner=" + owner
-				+ "]";
+		return "Pet [id=" + id + ", name=" + name + ", gender=" + gender + ", type=" + type + ", owner=" + owner + "]";
 	}
 }

@@ -1,13 +1,13 @@
 package com.hibernate.entity;
 
 import jakarta.persistence.Column;
-import jakarta.persistence.DiscriminatorValue;
 import jakarta.persistence.Entity;
+import jakarta.persistence.Table;
 
-@DiscriminatorValue("Wild")
 @Entity
+@Table(name="wild_pet_table")
 public class WildPet extends Pet {
-	@Column(name = "place_of_birth")
+	@Column(name = "place_of_birth",nullable=false)
 	private String birthPlace;
 
 	public String getBirthPlace() {
