@@ -1,21 +1,22 @@
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
-  
-  <modelVersion>4.0.0</modelVersion>
-  <groupId>com.hibernate</groupId>
-  <artifactId>Demo01</artifactId>
-  <version>0.0.1-SNAPSHOT</version>
-  <name>Demo01</name>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+
+	<modelVersion>4.0.0</modelVersion>
+	<groupId>com.hibernate</groupId>
+	<artifactId>Demo01</artifactId>
+	<version>0.0.1-SNAPSHOT</version>
+	<name>Demo01</name>
 
 
-   <properties>
+	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<maven.compiler.source>17</maven.compiler.source>
 		<maven.compiler.target>17</maven.compiler.target>
 		<hibernate.version>7.1.0.Final</hibernate.version>
 		<mysql.version>9.4.0</mysql.version>
-   </properties>
-	
+	</properties>
+
 	<dependencies>
 		<dependency>
 			<groupId>org.hibernate.orm</groupId>
@@ -27,16 +28,24 @@
 			<artifactId>mysql-connector-j</artifactId>
 			<version>${mysql.version}</version>
 		</dependency>
+		<!-- 
+			If you use <scope>test</scope>
+			The dependency is added only to the test classpath.That means:
+			✅ You can use it inside src/test/java and src/test/resources.
+			❌ You cannot use it inside your main code (src/main/java).
+			❌ It won’t be included in the packaged JAR/WAR.
+		-->
+		
 		<!-- https://mvnrepository.com/artifact/com.h2database/h2 -->
 		<dependency>
-		    <groupId>com.h2database</groupId>
-		    <artifactId>h2</artifactId>
-		    <version>2.3.232</version>
-		    <!-- <scope>test</scope>  -->
-		    <!--<scope>runtime</scope>-->
+			<groupId>com.h2database</groupId>
+			<artifactId>h2</artifactId>
+			<version>2.3.232</version>
+			<!--<scope>runtime</scope>-->
+			<!-- <scope>test</scope>  -->
 		</dependency>
 	</dependencies>
-	
+
 	<build>
 		<pluginManagement>
 			<!-- lock down plugins versions to avoid using Maven defaults (may

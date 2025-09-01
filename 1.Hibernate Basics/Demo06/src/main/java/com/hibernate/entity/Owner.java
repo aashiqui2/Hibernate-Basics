@@ -2,11 +2,16 @@ package com.hibernate.entity;
 
 import java.time.LocalDate;
 
-
 import com.hibernate.enums.Gender;
 import com.hibernate.enums.PetType;
 
-import jakarta.persistence.*;
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
+import jakarta.persistence.Id;
+import jakarta.persistence.IdClass;
+import jakarta.persistence.Table;
 
 @IdClass(value=OwnerPetPrimaryKey.class)
 @Entity
@@ -51,6 +56,14 @@ public class Owner {
 	}
 	public void setId(int id) {
 		this.id= id;
+	}
+	
+	public int getPetId() {
+		return petId;
+	}
+	
+	public void setPetId(int petId) {
+		this.petId = petId;
 	}
 	
 	public String getFirstName() {
@@ -111,13 +124,6 @@ public class Owner {
 	}
 	
 	
-	public int getPetId() {
-		return petId;
-	}
-
-	public void setPetId(int petId) {
-		this.petId = petId;
-	}
 	
 
 	public String getPetName() {

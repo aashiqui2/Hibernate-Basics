@@ -22,4 +22,7 @@ select * from owner_table where id = ?;
 update owner_table set pet_name = ? where id = ?;
 delete from owner_table where id = ?;
 select * from owner_table;
-select bin_to_uuid(id) as id, first_name, last_name, gender, city, state, mobile_number, email_id, pet_id, pet_name, pet_date_of_birth, pet_gender, pet_type from owner_table;
+
+select bin_to_uuid(id) as id, first_name, last_name, gender, city, state, 
+mobile_number, email_id, pet_id, pet_name, pet_date_of_birth, pet_gender, 
+pet_type from owner_table;

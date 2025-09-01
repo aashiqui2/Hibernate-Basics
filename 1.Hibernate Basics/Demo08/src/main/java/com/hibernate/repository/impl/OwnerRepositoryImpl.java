@@ -17,11 +17,8 @@ public class OwnerRepositoryImpl implements OwnerRepository {
 	public void saveOwner(Owner owner) {
 		try(Session session = sessionFactory.openSession()) {
 			Transaction transaction = session.beginTransaction();
-			System.out.println("Before Saving "+ owner.getId());
 			session.persist(owner);
-			System.out.println("After Saving "+ owner.getId());
 			transaction.commit();
-			System.out.println("After Commiting "+ owner.getId());
 		}
 	}
 
@@ -58,7 +55,8 @@ public class OwnerRepositoryImpl implements OwnerRepository {
 	public Owner findOwner(String emailId, String mobileNumber) {
 		try (Session session = sessionFactory.openSession()) {
 			// use  it when you have only one natural id in the entity
-			// return session.bySimpleNaturalId(Owner.class).load(emailId);
+			//return session.bySimpleNaturalId(Owner.class).load(mobileNumber);
+			
 			// composite natural key.
 			return session.byNaturalId(Owner.class)
 					.using("emailId", emailId)  

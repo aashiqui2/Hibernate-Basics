@@ -19,9 +19,11 @@ public class OwnerDTO {
 	private Gender petGender;
 	private PetType petType;
 
+	/*
 	public int getId() {
 		return id;
 	}
+	*/
 	
 	public void setId(int id) {
 		this.id=id;		

@@ -31,16 +31,19 @@ public class App {
 		
 
 		// Java Configuration for default hibernate.properties file
+ 
       	Configuration configuration = new Configuration()
 				                     .addAnnotatedClass(Owner.class);
 		ServiceRegistry serviceRegistry = new StandardServiceRegistryBuilder()
 				                     .applySettings(configuration.getProperties()).build();
 		configuration.buildSessionFactory(serviceRegistry);
+	
 		
 
 		
 		// Java Configuration for custom h2.properties file	
 		// Start H2 Console in same JVM as Hibernate
+		
 		/*
 		try {
 		    Server.createWebServer("-web", "-webAllowOthers", "-webPort", "8082").start();
@@ -57,15 +60,28 @@ public class App {
 		}
 
 		// Hibernate init...
+		
 		String profile = "h2"; 
 		String fileName = profile.equals("mysql") ? "mysql.properties" : "h2.properties";
-
+		
+		// class loader of a specific class (App.class.getClassLoader()).
+		//Properties props = new Properties();
+		//try (InputStream input = App.class.getClassLoader().getResourceAsStream(fileName)) {
+		//    props.load(input);
+		//} catch(Exception e) {
+		//    e.printStackTrace();
+		//}
+		
+		// context class loader of the current thread.
 		Properties props = new Properties();
-		try (InputStream input = App.class.getClassLoader().getResourceAsStream(fileName)) {
+		try (InputStream input = Thread.currentThread()
+		        .getContextClassLoader()
+		        .getResourceAsStream(fileName)) {
 		    props.load(input);
-		} catch(Exception e) {
-		    e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
 		}
+
 
 		Configuration configuration = new Configuration()
 		        .addAnnotatedClass(Owner.class)

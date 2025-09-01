@@ -17,11 +17,8 @@ public class OwnerRepositoryImpl implements OwnerRepository {
 	public void saveOwner(Owner owner) {
 		try(Session session = sessionFactory.openSession()) {
 			Transaction transaction = session.beginTransaction();
-			System.out.println("Before Saving "+ owner.getId());
 			session.persist(owner);
-			System.out.println("After Saving "+ owner.getId());
 			transaction.commit();
-			System.out.println("After Commiting "+ owner.getId());
 		}
 	}
 

@@ -5,12 +5,12 @@ import java.util.Objects;
 
 import com.hibernate.config.PropertiesConfig;
 import com.hibernate.dto.OwnerDTO;
+import com.hibernate.entity.Owner;
 import com.hibernate.exception.OwnerNotFoundException;
 import com.hibernate.repository.OwnerRepository;
+import com.hibernate.repository.impl.OwnerRepositoryImpl;
 import com.hibernate.service.OwnerService;
 import com.hibernate.util.MapperUtil;
-import com.hibernate.repository.impl.OwnerRepositoryImpl;
-import com.hibernate.entity.Owner;
 
 public class OwnerServiceImpl implements OwnerService {
 	private OwnerRepository ownerRepository;

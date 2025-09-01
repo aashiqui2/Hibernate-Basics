@@ -1,11 +1,17 @@
 package com.hibernate.entity;
 
-import java.time.*;
+import java.time.LocalDate;
 
 import com.hibernate.enums.Gender;
 import com.hibernate.enums.PetType;
 
-import jakarta.persistence.*;
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.Id;
+import jakarta.persistence.Table;
 
 @Entity
 @Table(name = "owner_table")
@@ -40,11 +46,12 @@ public class Owner {
 	@Enumerated(value = EnumType.STRING)
 	@Column(name = "pet_type", nullable = false)
 	private PetType petType;
-
-	// setId() is removed 
+	
 	public int getId() {
 		return id;
 	}
+	
+	// setId() is removed due to @GeneratedValue SEQ
 	
 	public String getFirstName() {
 		return firstName;

@@ -3,9 +3,7 @@ package com.hibernate.entity;
 import java.io.Serializable;
 import java.util.Objects;
 
-
-
-
+// Composite Primary Key
 public class OwnerPetPrimaryKey implements Serializable{
 	
 	private static final long serialVersionUID = 1L;

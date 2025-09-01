@@ -2,11 +2,15 @@ package com.hibernate.entity;
 
 import java.time.LocalDate;
 
-
 import com.hibernate.enums.Gender;
 import com.hibernate.enums.PetType;
 
-import jakarta.persistence.*;
+import jakarta.persistence.Column;
+import jakarta.persistence.EmbeddedId;
+import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
+import jakarta.persistence.Table;
 
 @Entity
 @Table(name = "owner_table")
@@ -14,6 +18,7 @@ public class Owner {
 	
 	@EmbeddedId
 	private OwnerPetPrimaryKey primaryKey;
+	
 	@Column(name = "first_name", nullable = false)
 	private String firstName;
 	@Column(name = "last_name", nullable = false)

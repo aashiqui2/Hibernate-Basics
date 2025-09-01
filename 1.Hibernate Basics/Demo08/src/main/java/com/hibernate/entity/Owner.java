@@ -14,7 +14,8 @@ import jakarta.persistence.*;
 public class Owner {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Id
-	private int id;
+	private int id; // database primary key (surrogate key)
+	
 	@Column(name = "first_name", nullable = false)
 	private String firstName;
 	@Column(name = "last_name", nullable = false)
@@ -28,14 +29,15 @@ public class Owner {
 	private String state;
 
 	// Natural ID are unique in nature and but it can be null and also when we have
-	// 2 Natural ID it won't automatically provide unique
+	// 2 Natural ID it won't automatically provide unique.
+	// Hibernate-specific annotation (not standard JPA).
 	@NaturalId(mutable = true)
 	@Column(name = "mobile_number", nullable = false, unique = true, length = 10)
-	private String mobileNumber;
+	private String mobileNumber; // business identifier
 
 	// Natural ID are unique in nature and but it can be null
 	@NaturalId(mutable = true)
-	@Column(name = "email_id", nullable = false)
+	@Column(name = "email_id", nullable = false,unique = true)
 	private String emailId;
 
 	@Column(name = "pet_id", nullable = false)

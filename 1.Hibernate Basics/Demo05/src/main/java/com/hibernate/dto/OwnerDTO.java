@@ -5,7 +5,7 @@ import com.hibernate.enums.PetType;
 import java.time.LocalDate;
 
 public class OwnerDTO {
-	private String id;//int to String fro UUID
+	private String id;// int to String due to UUID
 	private String firstName;
 	private String lastName;
 	private Gender gender;
@@ -20,10 +20,13 @@ public class OwnerDTO {
 	private PetType petType;
 
 	//setting and getter id type to String 
-	public String getId() {
+	/*
+	   public String getId() {
 		return id;
-	}
+	  }
+	*/
 	
+	//setting and getter id type to String 
 	public void setId(String id) {
 		this.id=id;		
 	}
