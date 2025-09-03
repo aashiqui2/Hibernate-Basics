@@ -40,6 +40,8 @@ public class Owner {
 	private String emailId;
 	/*
 	 * By default fetch type is LAZY
+	 * In @onetomany  there is no optional=false
+	 * An Owner can have zero, one, or many pets.
 	 */
 	@OneToMany(cascade = CascadeType.ALL,fetch = FetchType.LAZY,mappedBy = "owner", orphanRemoval = true)
 	private List<Pet> petList= new ArrayList<>();

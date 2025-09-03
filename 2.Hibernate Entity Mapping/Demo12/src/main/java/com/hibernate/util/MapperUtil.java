@@ -2,6 +2,7 @@ package com.hibernate.util;
 
 
 import java.util.List;
+import java.util.stream.Collector;
 import java.util.stream.Collectors;
 
 import com.hibernate.dto.OwnerDTO;
@@ -25,8 +26,12 @@ public class MapperUtil {
 		ownerDTO.setState(owner.getState());
 		ownerDTO.setMobileNumber(owner.getMobileNumber());
 		ownerDTO.setEmailId(owner.getEmailId());
-		List<PetDTO> petDTOList = owner.getPetList().stream().map(MapperUtil::convertPetEntityToDtoWithoutOwner)
+		List<PetDTO> petDTOList = owner.getPetList().stream()
+				.map(MapperUtil::convertPetEntityToDtoWithoutOwner)
 				.collect(Collectors.toList());
+		// List<PetDTO> petDTOList=owner.getPetList().stream()
+		//              .map(pet->convertPetEntityToDtoWithoutOwner(pet))
+		// 			 .collect(Collectors.toList());
 		ownerDTO.setPetDTOList(petDTOList);
 		return ownerDTO;
 	}

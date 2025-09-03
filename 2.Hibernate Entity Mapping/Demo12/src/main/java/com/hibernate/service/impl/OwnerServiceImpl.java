@@ -77,7 +77,7 @@ public class OwnerServiceImpl implements OwnerService {
 			throw new OwnerNotFoundException(String.format(PROPERTIES_CONFIG.getProperty(OWNER_NOT_FOUND), ownerId));
 		}
 		Pet pet = MapperUtil.convertPetDtoToEntity(petDTO);
-		pet.setOwner(owner);
+		pet.setOwner(owner);// set the owner
 		ownerRepository.addPet(ownerId, pet);
 	}
 

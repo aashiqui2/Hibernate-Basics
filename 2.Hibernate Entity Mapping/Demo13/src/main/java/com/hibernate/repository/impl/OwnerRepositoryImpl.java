@@ -16,7 +16,7 @@ public class OwnerRepositoryImpl implements OwnerRepository {
 	private SessionFactory sessionFactory = DatabaseConfig.getSessionFactory();
 
 	@Override
-	public void saveOwner(Owner owner) { 
+	public void saveOwner(Owner owner) {
 		try (Session session = sessionFactory.openSession()) {
 			Transaction transaction = session.beginTransaction();
 			session.persist(owner);
@@ -31,7 +31,7 @@ public class OwnerRepositoryImpl implements OwnerRepository {
 		}
 	}
 
-	@Override 
+	@Override
 	public Owner findOwnerWithPet(int ownerId) {
 		try (Session session = sessionFactory.openSession()) {
 			Owner owner = session.get(Owner.class, ownerId);
@@ -62,8 +62,7 @@ public class OwnerRepositoryImpl implements OwnerRepository {
 			Transaction transaction = session.beginTransaction();
 			Owner owner = session.get(Owner.class, ownerId);
 			if (Objects.nonNull(owner)) {
-				owner.getPetList().stream().filter(pet -> pet.getOwnerList().size() == 1)
-						.forEach(session::remove);
+				owner.getPetList().stream().filter(pet -> pet.getOwnerList().size() == 1).forEach(session::remove);
 				session.remove(owner);
 			}
 			transaction.commit();
@@ -89,8 +88,32 @@ public class OwnerRepositoryImpl implements OwnerRepository {
 			Transaction transaction = session.beginTransaction();
 			Owner owner = session.get(Owner.class, ownerId);
 			if (Objects.nonNull(owner)) {
+
+				//! Option 1: If you have multiple pet IDs to remove at once, use forEach
+				/* - Iterates through all pets matching the petId(s)
+				   - Removes only those pets that have no co-owners (ownerList.size() == 1)
+				*/
+			    // owner.getPetList().stream()
+				// 				  .filter(pet -> pet.getId() == petId)
+				// 				  .filter(pet -> pet.getOwnerList().size() == 1)
+				// 				  .forEach(session::remove); // Remove each matched pet from DB
+
+				//! Option 2: If you are removing a single petId, use findFirst
+				/*  - Finds the first (and only) pet matching the criteria
+				    - Removes it from DB if it has no co-owners 
+				*/
+
 				owner.getPetList().stream().filter(pet -> pet.getId() == petId)
-						.filter(pet -> pet.getOwnerList().size() == 1).forEach(session::remove);
+										   .filter(pet -> pet.getOwnerList().size() == 1)
+										   .findFirst()
+										   .ifPresent(pet -> session.remove(pet));
+
+				owner.getPetList().stream().filter(pet -> pet.getId() == petId)
+										   .filter(pet -> pet.getOwnerList().size() == 1)
+										   .findFirst()
+									       .ifPresent(session::remove);
+
+				//? Always remove the pet from the owner's pet list (unlink the association)
 				owner.getPetList().removeIf(pet -> pet.getId() == petId);
 				session.merge(owner);
 			}

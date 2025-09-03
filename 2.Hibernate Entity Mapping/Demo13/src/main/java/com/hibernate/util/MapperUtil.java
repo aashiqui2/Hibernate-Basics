@@ -26,7 +26,8 @@ public class MapperUtil {
 		ownerDTO.setState(owner.getState());
 		ownerDTO.setMobileNumber(owner.getMobileNumber());
 		ownerDTO.setEmailId(owner.getEmailId());
-		List<PetDTO> petDTOList = owner.getPetList().stream().map(MapperUtil::convertPetEntityToDtoWithoutOwner)
+		List<PetDTO> petDTOList = owner.getPetList().stream()
+				.map(MapperUtil::convertPetEntityToDtoWithoutOwner)
 				.collect(Collectors.toList());
 		ownerDTO.setPetDTOList(petDTOList);
 		return ownerDTO;
@@ -49,8 +50,12 @@ public class MapperUtil {
 		petDTO.setBirthDate(pet.getBirthDate());
 		petDTO.setGender(pet.getGender());
 		petDTO.setType(pet.getType());
-		List<OwnerDTO> ownerDTOList = pet.getOwnerList().stream().map(MapperUtil::convertOwnerEntityToDtoWithoutPet)
-				.collect(Collectors.toList());
+		// List<OwnerDTO> ownerDTOList = pet.getOwnerList().stream()
+		//      .map(MapperUtil::convertOwnerEntityToDtoWithoutPet)
+		// 		.collect(Collectors.toList());
+		List<OwnerDTO> ownerDTOList = pet.getOwnerList().stream()
+				.map(owner -> convertOwnerEntityToDtoWithoutPet(owner))
+				.collect(Collectors.toList()); 
 		petDTO.setOwnerDTOList(ownerDTOList);
 		return petDTO;
 	}
@@ -77,8 +82,12 @@ public class MapperUtil {
 		owner.setState(ownerDTO.getState());
 		owner.setMobileNumber(ownerDTO.getMobileNumber());
 		owner.setEmailId(ownerDTO.getEmailId());	
-		Set<Pet> petList = ownerDTO.getPetDTOList().stream().map(MapperUtil::convertPetDtoToEntity)
-				.collect(Collectors.toSet());
+		// Set<Pet> petList = ownerDTO.getPetDTOList().stream()
+		//      .map(MapperUtil::convertPetDtoToEntity)
+		// 		.collect(Collectors.toSet());
+		Set<Pet> petList=ownerDTO.getPetDTOList().stream()
+				.map(petDTO->convertPetDtoToEntity(petDTO))
+				.collect(Collectors.toSet()); //pets do not yet know who their owner 
 		owner.setPetList(petList);
 		return owner;
 	}
